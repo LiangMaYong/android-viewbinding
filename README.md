@@ -6,11 +6,17 @@ Welcome Star and Issues
 download jar : [android-viewbinding-src.jar](https://raw.githubusercontent.com/LiangMaYong/android-viewbinding/master/jar/android-viewbinding-src.jar)
 
 ## Use this
-1,
+```
+@BindLayout(R.layout.activity_main)
+public class MainActivity extends AppCompatActivity {
 
-## Screenshot
-![Screenshot](https://raw.githubusercontent.com/LiangMaYong/android-loading/master/screenshot.png)
-![Screenshot](https://raw.githubusercontent.com/LiangMaYong/android-loading/master/screenshot_1.png)
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ViewBinding.parserActivity(this);
+    }
+}
+```
 
 ##License
 ```
