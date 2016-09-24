@@ -9,12 +9,12 @@ import android.view.ViewGroup;
 
 import com.liangmayong.viewbinding.annotations.BindColor;
 import com.liangmayong.viewbinding.annotations.BindLayout;
+import com.liangmayong.viewbinding.annotations.BindOnClick;
+import com.liangmayong.viewbinding.annotations.BindOnLongClick;
 import com.liangmayong.viewbinding.annotations.BindString;
 import com.liangmayong.viewbinding.annotations.BindTitle;
 import com.liangmayong.viewbinding.annotations.BindView;
-import com.liangmayong.viewbinding.annotations.OnClick;
-import com.liangmayong.viewbinding.annotations.OnLongClick;
-import com.liangmayong.viewbinding.interfaces.TitleInterface;
+import com.liangmayong.viewbinding.interfaces.AnnotationTitleInterface;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -45,9 +45,9 @@ public final class ViewBinding {
         if (isTitle(cl)) {
             BindTitle title = cl.getAnnotation(BindTitle.class);
             if (title.id() != 0) {
-                ((TitleInterface) act).setAnotationTitle(act.getString(title.id()));
+                ((AnnotationTitleInterface) act).setAnotationTitle(act.getString(title.id()));
             } else {
-                ((TitleInterface) act).setAnotationTitle(title.value());
+                ((AnnotationTitleInterface) act).setAnotationTitle(title.value());
             }
         }
         View decorView = act.getWindow().getDecorView();
@@ -69,9 +69,9 @@ public final class ViewBinding {
         if (isTitle(cl)) {
             BindTitle title = cl.getAnnotation(BindTitle.class);
             if (title.id() != 0) {
-                ((TitleInterface) obj).setAnotationTitle(root.getContext().getString(title.id()));
+                ((AnnotationTitleInterface) obj).setAnotationTitle(root.getContext().getString(title.id()));
             } else {
-                ((TitleInterface) obj).setAnotationTitle(title.value());
+                ((AnnotationTitleInterface) obj).setAnotationTitle(title.value());
             }
         }
         initFields(cl.getDeclaredFields(), root, obj);
@@ -96,9 +96,9 @@ public final class ViewBinding {
         if (isTitle(cl)) {
             BindTitle title = cl.getAnnotation(BindTitle.class);
             if (title.id() != 0) {
-                ((TitleInterface) obj).setAnotationTitle(root.getContext().getString(title.id()));
+                ((AnnotationTitleInterface) obj).setAnotationTitle(root.getContext().getString(title.id()));
             } else {
-                ((TitleInterface) obj).setAnotationTitle(title.value());
+                ((AnnotationTitleInterface) obj).setAnotationTitle(title.value());
             }
         }
         initFields(cl.getDeclaredFields(), root, obj);
@@ -123,9 +123,9 @@ public final class ViewBinding {
         if (isTitle(cl)) {
             BindTitle title = cl.getAnnotation(BindTitle.class);
             if (title.id() != 0) {
-                ((TitleInterface) fragment).setAnotationTitle(fragment.getActivity().getString(title.id()));
+                ((AnnotationTitleInterface) fragment).setAnotationTitle(fragment.getActivity().getString(title.id()));
             } else {
-                ((TitleInterface) fragment).setAnotationTitle(title.value());
+                ((AnnotationTitleInterface) fragment).setAnotationTitle(title.value());
             }
         }
 
@@ -146,9 +146,9 @@ public final class ViewBinding {
         if (isTitle(cl)) {
             BindTitle title = cl.getAnnotation(BindTitle.class);
             if (title.id() != 0) {
-                ((TitleInterface) view).setAnotationTitle(view.getContext().getString(title.id()));
+                ((AnnotationTitleInterface) view).setAnotationTitle(view.getContext().getString(title.id()));
             } else {
-                ((TitleInterface) view).setAnotationTitle(title.value());
+                ((AnnotationTitleInterface) view).setAnotationTitle(title.value());
             }
         }
         initFields(cl.getDeclaredFields(), view, view);
@@ -218,7 +218,7 @@ public final class ViewBinding {
     private static void initMethods(Method[] allMethod, View root, Object object) {
         for (Method method : allMethod) {
             if (isOnClick(method)) {
-                OnClick onClick = method.getAnnotation(OnClick.class);
+                BindOnClick onClick = method.getAnnotation(BindOnClick.class);
                 ProxyClick click = new ProxyClick(method, object);
                 int[] ids = onClick.value();
                 for (int id : ids) {
@@ -229,7 +229,7 @@ public final class ViewBinding {
                 }
             }
             if (isOnLongClick(method)) {
-                OnLongClick onLongClick = method.getAnnotation(OnLongClick.class);
+                BindOnLongClick onLongClick = method.getAnnotation(BindOnLongClick.class);
                 ProxyLongClick longClick = new ProxyLongClick(method, object);
                 int[] ids = onLongClick.value();
                 for (int id : ids) {
@@ -259,7 +259,7 @@ public final class ViewBinding {
      * @return true or false
      */
     private static boolean isTitle(Class<?> cls) {
-        return cls.isAnnotationPresent(BindTitle.class) && isClassGeneric(cls, TitleInterface.class.getName());
+        return cls.isAnnotationPresent(BindTitle.class) && isClassGeneric(cls, AnnotationTitleInterface.class.getName());
     }
 
     /**
@@ -299,7 +299,7 @@ public final class ViewBinding {
      * @return true or false
      */
     private static boolean isOnClick(Method method) {
-        return method.isAnnotationPresent(OnClick.class);
+        return method.isAnnotationPresent(BindOnClick.class);
     }
 
     /**
@@ -309,7 +309,7 @@ public final class ViewBinding {
      * @return true or false
      */
     private static boolean isOnLongClick(Method method) {
-        return method.isAnnotationPresent(OnLongClick.class);
+        return method.isAnnotationPresent(BindOnLongClick.class);
     }
 
     /**

@@ -6,13 +6,13 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * OnLongClick
+ * BindOnClick
  *
  * @author LiangMaYong
  * @version 1.0
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface OnLongClick {
+public @interface BindOnClick {
     int[] value();
 }
