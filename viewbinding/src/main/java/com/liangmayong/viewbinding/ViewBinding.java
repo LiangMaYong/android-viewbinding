@@ -39,7 +39,7 @@ public final class ViewBinding {
         View root = null;
         if (isLayout(cl)) {
             BindLayout layout = cl.getAnnotation(BindLayout.class);
-            root = LayoutInflater.from(act.getBaseContext()).inflate(layout.value(), null);
+            root = LayoutInflater.from(act).inflate(layout.value(), null);
             act.setContentView(root);
         }
         if (isTitle(cl)) {
